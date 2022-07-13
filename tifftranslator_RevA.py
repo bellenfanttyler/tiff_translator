@@ -7,7 +7,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 
-#-db DATABSE -u USERNAME -p PASSWORD -size 20
+# Parsing the input arguments
 parser.add_argument("-s", "--source", help="Source Filename - to be matched to Target")
 parser.add_argument("-t", "--target", help="Target Filename")
 
