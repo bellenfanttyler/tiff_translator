@@ -10,3 +10,5 @@ python tifftranslator_RevA.py -s SKYWATCH_SS_PS_20220326T1003_TC_Tile_0_0_oDhJ.t
 # Help information:
 python tifftranslator_RevA.py -help
 usage: tifftranslator_RevA.py [-h] [-s SOURCE] [-t TARGET]
+
+(/assets/matchedimage.jpg)
