@@ -1,0 +1,32 @@
+// Use bicubic resampling during registration.
+var image1Orig = image2.resample('bicubic');
+var image2Orig = image3.resample('bicubic');
+
+// Choose to register using only the 'R' band.
+var image1RedBand = image1Orig.select('b1');
+var image2RedBand = image2Orig.select('b1');
+
+// Determine the displacement by matching only the 'R' bands.
+var displacement = image2RedBand.displacement({
+  referenceImage: image1RedBand,
+  maxOffset: 50.0,
+  patchWidth: 100.0
+});
+
+// Compute image offset and direction.
+var offset = displacement.select('dx').hypot(displacement.select('dy'));
+var angle = displacement.select('dx').atan2(displacement.select('dy'));
+
+// Display offset distance and angle.
+Map.addLayer(offset, {min:0, max: 20}, 'offset');
+Map.addLayer(angle, {min: -Math.PI, max: Math.PI}, 'angle');
+
+
+// Use the computed displacement to register all original bands.
+var registered = image2Orig.displace(displacement);
+
+// Show the results of co-registering the images.
+var visParams = {bands: ['b1', 'b2', 'b3'], max: 4000};
+Map.addLayer(image1Orig, visParams, 'Reference');
+Map.addLayer(image2Orig, visParams, 'Before Registration');
+Map.addLayer(registered, visParams, 'After Registration');
